@@ -2,6 +2,8 @@ FROM python:3.10
 
 WORKDIR /app
 
+COPY Augusta .
+
 RUN apt-get update && \
     apt-get install -y --no-install-recommends \
     build-essential \
@@ -22,6 +24,7 @@ RUN pip3 install \
 
 EXPOSE 8000
 EXPOSE 4000
+EXPOSE 9005
 EXPOSE 9199
 EXPOSE 9099
 EXPOSE 9005
@@ -33,6 +36,5 @@ EXPOSE 5000
 EXPOSE 4000
 EXPOSE 9299
 EXPOSE 9399
-EXPOSE 9005
 
-CMD ["/bin/bash"]
+CMD ["bash", "script.sh"]
