@@ -1,4 +1,4 @@
-FROM python:3.10
+FROM python:latest
 
 WORKDIR /app
 
@@ -20,7 +20,8 @@ RUN pip3 install \
     firebase-admin \
     tqdm \
     djangorestframework \
-    pyrebase
+    pyrebase4 \
+    firebase-admin
 
 EXPOSE 8000
 EXPOSE 4000

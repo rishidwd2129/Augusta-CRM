@@ -2,7 +2,6 @@
 from django.shortcuts import render , redirect
 from django.http import HttpResponse
 import pyrebase
-from django.contrib import auth
 
 config = {
     'apiKey': "AIzaSyC1TfBBNAsC7IBP32ES24IQs2AAqm4zVwM",
@@ -15,7 +14,7 @@ config = {
     'measurementId': "G-0TRE4F4Z6Q"
     }
 firebase = pyrebase.initialize_app(config)
-auth_fb = firebase.auth()
+auth = firebase.auth()
 
 def index(request):
     return render(request, "index.html",{"next_action":"services/"})
@@ -24,18 +23,15 @@ def services(request):
     email=request.POST.get('email')
     password=request.POST.get('password')  
     try: 
-        user=auth_fb.sign_in_with_email_and_password(email, password)
+        user=auth.sign_in_with_email_and_password(email, password)
         print(user)
         return render(request, "services.html")
     except:
         return render(request, "index.html", {"messages":"Invalid Credentials try again"})
 
 def sign_up(request):
-    return render(request, "sign_up.html")
+    return render(request, "sign-up.html")
 
-def logout(request):
-    auth.logout(request)
-    return render(request, "index.html")
 
 def CallLeads(request):
     return render(request, "call-leads.html")
