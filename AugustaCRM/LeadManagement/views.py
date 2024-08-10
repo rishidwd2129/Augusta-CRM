@@ -6,3 +6,5 @@ def index(request):
 
 def services(request):
     return render(request, "services.html")
+def CallLeads(request):
+    return render(request, "call-leads.html")
