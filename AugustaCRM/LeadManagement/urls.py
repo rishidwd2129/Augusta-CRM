@@ -24,5 +24,9 @@ urlpatterns = [
     path('services/call-leads/',views.CallLeads, name = "call-leads"),
     path('services/call-leads/calendly/',views.calendly, name = "calendly"),
     path('services/call-leads/result-log/',views.ResultLog, name = "call-result-log"),
+    path('services/call-leads/result-log/call-back/',views.CallBackLater),
+    path('services/call-leads/result-log/not-answered/',views.NotAnswered),
+    path('services/call-leads/result-log/not-intrested/',views.NotIntrested),
+    
      
 ]

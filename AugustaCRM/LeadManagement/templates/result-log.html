@@ -193,46 +193,51 @@
 
         <!-- Navbar. Remove 'fixed-top' class to make the navigation bar scrollable with the page-->
         <header class="navbar navbar-expand-lg fixed-top bg-light">
-          <div class="container"><a class="navbar-brand pe-sm-3" href="/"><span class="text-primary flex-shrink-0 me-3">
-              
-                {% comment %} <div class="img-fluid">
-                  <img style="height:35px;"  src="{% static 'assets/img/logo/datageekslogo.png' %}">
-                </div> {% endcomment %}
-              
-              </span>Augusta Properties</a>
-  
+          <div class="container">
+              {% comment %} <a class="navbar-brand pe-sm-3" href="/">
+                  <span class="text-primary flex-shrink-0 me-3">
+                      
+                      <div class="img-fluid">
+                          <img style="height:35px;" src="{% static 'assets/img/logo/datageekslogo.png' %}">
+                      </div> 
+                      
+                  </span>
+                  Augusta Properties
+              </a> {% endcomment %}
 
+              
 
-            <!-- Toggle dark mode -->
-            <div class="form-check form-switch mode-switch order-lg-2 me-3 me-lg-4 ms-auto" data-bs-toggle="mode">
+              <nav class="navbar navbar-expand-md navbar-light bg-light">
+                <a class="navbar-brand" href="/">Augusta Properties</a>
+                <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+                    <span class="navbar-toggler-icon"></span>
+                </button>
+                <div class="collapse navbar-collapse" id="navbarNav">
+                    <ul class="navbar-nav">
+                        <li class="nav-item">
+                            <a class="nav-link" href="/services">Services</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="/services/call-leads">Next call</a>
+                        </li>
+                        {% comment %} <li class="nav-item">
+                            <a class="nav-link" href="#">Pricing</a>
+                        </li> {% endcomment %}
+                    </ul>
+             
+
+                </div>
+            </nav>
+              <!-- Toggle dark mode -->
+              <div class="d-flex justify-content-end form-check form-switch mode-switch order-lg-2 me-3 me-lg-4" data-bs-toggle="mode">
               <input class="form-check-input" type="checkbox" id="theme-mode">
               <label class="form-check-label" for="theme-mode"><i class="ai-sun fs-lg"></i></label>
               <label class="form-check-label" for="theme-mode"><i class="ai-moon fs-lg"></i></label>
-            </div>
-            <!-- End toggle dark mode -->
-
-            
-            
-            
-            
-            <button class="navbar-toggler ms-sm-3" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav"><span class="navbar-toggler-icon"></span></button>
-            <nav class="collapse navbar-collapse" id="navbarNav">
-              <ul class="navbar-nav navbar-nav-scroll me-auto" style="--ar-scroll-height: 520px;">
-               
-              {% comment %} <li class="nav-item active"><a class="nav-link" href="/">Home</a></li> {% endcomment %}
-                
-              
-  
-                {% comment %} <li class="nav-item"><a class="nav-link" href="Portfolio">Portfolio</a></li>
-                <li class="nav-item"><a class="nav-link" href="About">About</a></li>
-                <li class="nav-item"><a class="nav-link" href="form">Contact</a></li> {% endcomment %}
-  
-              </ul>
-              
-            </nav>
+              </div>
+              <!-- End toggle dark mode -->
           </div>
         </header>
-      
+      <br>
       <section class="container py-5 mt-3 mb-md-1 mb-lg-1 mb-xl-1">
          <!-- Breadcrumb -->
          <nav aria-label="breadcrumb">
@@ -243,16 +248,29 @@
           </ol>
         </nav> 
       </section>
+
+
      
       <div class="card text-center">
-        <div class="h3 card-header">Call Leads</div>
+        <div class="h3 card-header">Call Result Log</div>
         <div class="card-body">
-          
-          <div class="btn-group" role="group" aria-label="Outline button group">
-            <button type="button" class="btn btn-outline-primary"><a href="calendly/"><i class="ai-calendar">Call back later</i></button></a>
-            <button type="button" class="btn btn-outline-primary"><a href="tel:7607762599"><i class="ai-phone-call"></i></button></a>
-            <button type="button" class="btn btn-outline-primary"><a href="#"><i class="ai-phone-x"></i></button></a>
+
+          <div class="btn-group dropdown">
+            <button type="button" class="btn btn-outline-secondary dropdown-toggle" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+              Select log instruction
+            </button>
+            <div class="dropdown-menu my-1">
+              <a href="call-back/" class="dropdown-item"><i class="ai-phone-out"> Call back later</i></a>
+              <a href="not-answered/" class="dropdown-item"><i class="ai-phone"> Not Answered</i></a>
+              <a href="not-intrested/" class="dropdown-item"><i class="ai-phone-x"> Not Intrested</i></a>
+            </div>
           </div>
+
+          {% comment %} <div class="btn-group" role="group" aria-label="Outline button group">
+            <button type="button" class="btn btn-outline-primary"><a href="calendly/"><i class="ai-phone-out"> Call back later</i></button></a>
+            <button type="button" class="btn btn-outline-primary"><a href="tel:7607762599"><i class="ai-phone"> Not Answered</i></button></a>
+            <button type="button" class="btn btn-outline-primary"><a href="#"><i class="ai-phone-x"> Not Intrested</i></button></a>
+          </div> {% endcomment %}
         </div>
         <div class="card-footer fs-sm text-body-secondary">End</div>
       </div>
@@ -269,11 +287,16 @@
     
     
         <!-- Vendor scripts: JS libraries and plugins -->
+        <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+        <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+        <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.8/dist/umd/popper.min.js" integrity="sha384-I7E8VVD/ismYTF4hNIPjVp/Zjvgyol6VFvRkX/vR+Vc4jQkC+hVqc2pM8ODewa9r" crossorigin="anonymous"></script>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.min.js" integrity="sha384-0pUGZvbkm6XF6gxjEnlmuGrJXVbNuzT9qBBavbLwCsOGabYfZo0T0to5eqruptLy" crossorigin="anonymous"></script>
         <script src="{% static 'assets/vendor/parallax-js/dist/parallax.min.js' %}"></script>
         <script src="{% static 'assets/vendor/swiper/swiper-bundle.min.js' %}"></script>
         <script src="{% static 'assets/vendor/aos/dist/aos.js' %}"></script>
     
         <!-- Bootstrap + Theme scripts -->
         <script src="{% static 'assets/js/theme.min.js' %}"></script>
+      </main>
   </body>
 </html> 

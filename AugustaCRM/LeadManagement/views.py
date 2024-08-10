@@ -15,3 +15,15 @@ def calendly(request):
 
 def ResultLog(request):
     return render(request, "result-log.html")
+
+def CallBackLater(request):
+    # Crud operation code
+    return redirect('/services/call-leads/result-log')
+
+def NotAnswered(request):
+    #Crud operation code
+    return redirect('/services/call-leads/result-log')
+
+def NotIntrested(request):
+    #Crud operation code
+    return redirect('/services/call-leads/result-log')
