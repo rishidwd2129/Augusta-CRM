@@ -22,5 +22,6 @@ urlpatterns = [
     path('',views.index,name = "Home"),
     path('services/',views.services, name = "services"),
     path('services/call-leads/',views.CallLeads, name = "call-leads"),
+    path('services/call-leads/calendly/',views.calendly, name = "calendly"),
      
 ]

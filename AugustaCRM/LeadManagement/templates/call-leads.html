@@ -243,7 +243,7 @@
           </ol>
         </nav> 
       </section>
-      <h2 class="h1 text-center pb-3 pb-lg-4">Call leads</h2>
+      {% comment %} <h2 class="h1 text-center pb-3 pb-lg-4">Call leads</h2>
       <div class="swiper" data-swiper-options='
         {
           "spaceBetween": 24,
@@ -256,33 +256,28 @@
             "992": { "slidesPerView": 3 }
           }
         }
-      '>
+      '> {% endcomment %}
 
-
-      <div class="swiper-slide h-auto">
-        <a class="card bg-secondary border-0 h-100 text-center text-decoration-none" href="#">
-          <div class="card-body">
-            <svg class="d-block mx-auto mb-4" width="56" height="56" viewBox="0 0 56 56" fill="none" xmlns="http://www.w3.org/2000/svg">
-              <path class="text-primary" d="M39.2,0H16.8c-3.1,0-5.6,2.5-5.6,5.6V9h33.6V5.6C44.8,2.5,42.3,0,39.2,0z M30.2,6.7h-4.5c-0.6,0-1.1-0.5-1.1-1.1s0.5-1.1,1.1-1.1h4.5c0.6,0,1.1,0.5,1.1,1.1S30.9,6.7,30.2,6.7z" fill="currentColor"></path>
-              <path class="text-primary" d="M11.2,47v3.4c0,3.1,2.5,5.6,5.6,5.6h22.4c3.1,0,5.6-2.5,5.6-5.6V47H11.2L11.2,47z M28,51.5c-0.6,0-1.1-0.5-1.1-1.1c0-0.6,0.5-1.1,1.1-1.1c0.6,0,1.1,0.5,1.1,1.1C29.1,51,28.6,51.5,28,51.5z" fill="currentColor"></path>
-              <path class="text-warning" d="M11.2,11.2v33.6h33.6V11.2H11.2z M23.6,30.8c0.3,0.3,0.4,0.8,0.1,1.2s-0.9,0.5-1.2,0.3l-4.2-3.5c-0.4-0.4-0.4-1,0-1.4l4.2-3.5c0.4-0.3,0.9-0.3,1.2,0.1c0.3,0.3,0.3,0.9-0.1,1.2L20.2,28L23.6,30.8z M31.3,22.3l-5,12.2c-0.2,0.4-0.7,0.6-1.1,0.5c-0.4-0.1-0.6-0.7-0.4-1.1l5-12.2c0.2-0.5,0.7-0.7,1.1-0.5C31.3,21.3,31.5,21.9,31.3,22.3z M37.7,28.7l-4.2,3.5c-0.3,0.3-0.9,0.2-1.2-0.3C32,31.6,32,31,32.4,30.7l3.4-2.8l-3.4-2.8c-0.3-0.3-0.4-0.8-0.1-1.2c0.3-0.3,0.8-0.4,1.2-0.1l4.2,3.5C38.1,27.7,38.1,28.3,37.7,28.7z" fill="currentColor"></path>
-            </svg>
-            <h3 class="text-center">Lead info :</h3>
-            <p class="card-text text-center">{leads.name}</p>
-            <p class="card-text text-center">{leads.email}</p>
-            <p class="card-text text-center">{leads.number}</p>
-            <br>
-            <p class="card-text text-center">Created at: {leads.time}</p>
-            <p class="card-text text-center">Source: {leads.source}</p>
-
+      <div class="card text-center">
+        <div class="h3 card-header">Call Leads</div>
+        <div class="card-body">
+          <h4 class="card-title">Lead Information</h4>
+          <p class="card-text">{leads.name}</p>
+          <p class="card-text">{leads.email}</p>
+          <p class="card-text">{leads.number}</p>
+          <br>
+          <p class="card-text">Created at: {leads.time}</p>
+          <p class="card-text">Source: {leads.source}</p>
+          {% comment %} <a href="#" class="btn btn-primary">Go somewhere</a> {% endcomment %}
+          <div class="btn-group" role="group" aria-label="Outline button group">
+            <button type="button" class="btn btn-outline-primary"><a href="calendly/"><i class="ai-calendar"></i></button></a>
+            <button type="button" class="btn btn-outline-primary"><a href="tel:7607762599"><i class="ai-phone-call"></i></button></a>
+            <button type="button" class="btn btn-outline-primary"><a href="#"><i class="ai-phone-x"></i></button></a>
           </div>
-          <div class="card-footer border-0 px-0 pt-0 pb-4 mb-3">
-            <div class="btn btn-icon btn-outline-primary rounded-circle stretched-link">
-              <i class="ai-arrow-right"></i>
-            </div>
-          </div>
-        </a>
+        </div>
+        <div class="card-footer fs-sm text-body-secondary">End</div>
       </div>
+      
         
     
         <!-- Back to top button -->
