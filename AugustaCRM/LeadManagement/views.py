@@ -12,3 +12,6 @@ def CallLeads(request):
 
 def calendly(request):
     return render(request, "calendly.html")
+
+def ResultLog(request):
+    return render(request, "result-log.html")
