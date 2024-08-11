@@ -3,6 +3,8 @@ from django.shortcuts import render , redirect
 from django.http import HttpResponse
 import pyrebase
 from django.contrib import auth
+from django.shortcuts import redirect
+from django.conf import settings
 
 import os
 
@@ -32,6 +34,17 @@ def services(request):
         return render(request, "services.html")
     except:
         return render(request, "index.html", {"messages":"Invalid Credentials try again"})
+
+def google_login(request):
+    # Get the Google OAuth URL
+    google_url = auth.get_google_provider_url()
+    return redirect(google_url)
+
+def google_callback(request):
+    token = request.GET.get('id_token')
+    user = auth_fb.sign_in_with_google(token)
+    # handle user creation or login with Django's user model
+    return redirect('/services/')
 
 def sign_up(request):
     return render(request, "sign_up.html")
