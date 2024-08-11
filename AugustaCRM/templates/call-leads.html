@@ -264,12 +264,12 @@
         <div class="h3 card-header">Call Leads</div>
         <div class="card-body">
           <h4 class="card-title">Lead Information</h4>
-          <p class="card-text">{leads.name}</p>
-          <p class="card-text">{leads.email}</p>
-          <p class="card-text">{leads.number}</p>
+          <p class="card-text">{{name}}</p>
+          <p class="card-text">{{email}}</p>
+          <p class="card-text">{{phone}}</p>
           <br>
-          <p class="card-text">Created at: {leads.time}</p>
-          <p class="card-text">Source: {leads.source}</p>
+          <p class="card-text">Created at: {{time}}</p>
+          <p class="card-text">Source: {{source}}</p>
           {% comment %} <a href="#" class="btn btn-primary">Go somewhere</a> {% endcomment %}
           <div class="btn-group" role="group" aria-label="Outline button group">
             <button type="button" class="btn btn-outline-primary"><a href="calendly/"><i class="ai-calendar"></i></button></a>

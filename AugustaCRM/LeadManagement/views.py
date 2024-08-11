@@ -1,8 +1,9 @@
 # Create your views here.
 from django.shortcuts import render , redirect
 from django.http import HttpResponse
-import pyrebase
 from django.contrib import auth
+import pyrebase
+from datetime import datetime
 
 import os
 
@@ -19,13 +20,14 @@ FIREBASE_CONFIG = {
 
 firebase = pyrebase.initialize_app(FIREBASE_CONFIG)
 auth_fb = firebase.auth()
+db = firebase.database()
 
 def index(request):
     return render(request, "index.html",{"next_action":"services/"})
 
 def services(request):
     email=request.POST.get('email')
-    password=request.POST.get('password')  
+    password=request.POST.get('password')
     try: 
         user=auth_fb.sign_in_with_email_and_password(email, password)
         print(user)
@@ -41,7 +43,21 @@ def logout(request):
     return render(request, "index.html")
 
 def CallLeads(request):
-    return render(request, "call-leads.html")
+    now = datetime.now()
+    data = {"currenttimemillis":"12:12:08.76", "name":"Rishi", "email": "rishidwd29@gmail.com", "phone": "+9156473126", "lead_create_time/date": f"{now}", "status": "pending"}
+    db.child("leads_details").push(data)
+    point=db.child("leads_details").child("email").get()
+    # point= db.child("local_test").child("lead_details").child("email").get()
+    email = point.val()
+    # point= db.child("local_test").child("lead_details").child("name").get()
+    name = "Rishi"
+    # point= db.child("local_test").child("lead_details").child("name").get()
+    phone = "+91323456789"
+    # point= db.child("local_test").child("lead_details").child("name").get()
+    time = "created at"
+    # point= db.child("local_test").child("lead_details").child("name").get()
+    source = "facebook"
+    return render(request, "call-leads.html", {"email": email, "name": name, "phone": phone, "time": time, "source": source})
 
 def calendly(request):
     return render(request, "calendly.html")
