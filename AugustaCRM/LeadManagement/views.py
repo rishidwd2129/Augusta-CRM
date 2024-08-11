@@ -36,14 +36,14 @@ def services(request):
     password=request.POST.get('password')
     try: 
         user=auth_fb.sign_in_with_email_and_password(email, password)
-        print(user)
+        session_id=user['idToken']
+        request.session['uid']=str(session_id)
         return render(request, "services.html")
     except:
-        return render(request, "index.html", {"messages":"Invalid Credentials try again"})
-
-
-def sign_up(request):
-    return render(request, "sign_up.html")
+        if session_id:
+            return render(request, "services.html")
+        else:
+            return render(request, "index.html", {"messages":"Invalid Credentials try again"})
 
 def logout(request):
     auth.logout(request)
