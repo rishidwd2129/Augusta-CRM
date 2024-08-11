@@ -1,5 +1,15 @@
 #!/bin/bash
 
+# Parse the env_var.yaml and export each variable
+while IFS= read -r line || [ -n "$line" ]; do
+  # Strip surrounding quotes and carriage returns
+  var=$(echo "$line" | sed 's/[\r]//g')  
+  # Export the cleaned variable
+  export "$var"
+done < env_var.yaml
+# To verify, you can print all environment variables starting with FIREBASE_
+env | grep FIREBASE_
+
 # Default IP and port
 IP="0.0.0.0"
 PORT="8000"

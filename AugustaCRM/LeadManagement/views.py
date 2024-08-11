@@ -4,17 +4,20 @@ from django.http import HttpResponse
 import pyrebase
 from django.contrib import auth
 
-config = {
-    'apiKey': "AIzaSyC1TfBBNAsC7IBP32ES24IQs2AAqm4zVwM",
-    'authDomain': "augusta-crm-95afd.firebaseapp.com",
-    'databaseURL': "https://augusta-crm-95afd-default-rtdb.asia-southeast1.firebasedatabase.app",
-    'projectId': "augusta-crm-95afd",
-    'storageBucket': "augusta-crm-95afd.appspot.com",
-    'messagingSenderId': "166508227104",
-    'appId': "1:166508227104:web:da21808b6c8b55ac49ea45",
-    'measurementId': "G-0TRE4F4Z6Q"
-    }
-firebase = pyrebase.initialize_app(config)
+import os
+
+FIREBASE_CONFIG = {
+    'apiKey': str(os.getenv('FIREBASE_API_KEY')),
+    'authDomain': str(os.getenv('FIREBASE_AUTH_DOMAIN')),
+    'databaseURL': str(os.getenv('FIREBASE_DATABASE_URL')),
+    'projectId': str(os.getenv('FIREBASE_PROJECT_ID')),
+    'storageBucket': str(os.getenv('FIREBASE_STORAGE_BUCKET')),
+    'messagingSenderId': str(os.getenv('FIREBASE_MESSAGING_SENDER_ID')),
+    'appId': str(os.getenv('FIREBASE_APP_ID')),
+    'measurementId': str(os.getenv('FIREBASE_MEASUREMENT_ID')),
+}
+
+firebase = pyrebase.initialize_app(FIREBASE_CONFIG)
 auth_fb = firebase.auth()
 
 def index(request):
