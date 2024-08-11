@@ -89,7 +89,7 @@ def Call(request):
     rec = get_Call_List()
     point = rec[0]
     attempt_no = point["Attempt_no"]
-    phone = point["phone"]
+    # phone = point["phone"]
     for key, value in result.items():
         rkey = key
         break
@@ -97,12 +97,12 @@ def Call(request):
     now = datetime.now().strftime('%Y-%m-%d %H:%M:%S')
     db.child("Call List").child(rkey).update({"Attempt_no": attempt_no})
     db.child("Call List").child(rkey).update({"Attempted": now})
-    print(phone)
-    redirect(f'tel:{phone}')
+    
 
     return redirect('services/call-leads/call-list/')
 
 def calendly(request):
+    
     return render(request, "calendly.html")
 
 def ResultLog(request):
