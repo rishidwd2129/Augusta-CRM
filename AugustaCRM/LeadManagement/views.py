@@ -1,11 +1,12 @@
 # Create your views here.
+import json
 from django.shortcuts import render , redirect
 from django.http import HttpResponse
-
 from django.contrib import auth
 import pyrebase
 from datetime import datetime
-
+from .serializer import DataSerializer
+from rest_framework.renderers import JSONRenderer
 
 
 
@@ -48,16 +49,26 @@ def logout(request):
     return render(request, "index.html")
 
 def CallLeads(request):
-    now = datetime.now()
-    # data = {"currenttimemillis":"12:12:08.76", "name":"Rishi", "email": "rishidwd29@gmail.com", "phone": "+9156473126", "lead_create_time/date": f"{now}", "status": "pending"}
-    # db.child("leads_details").push(data)
-    point=db.child("leads_details").child("email").get()
+    now = datetime.now().strftime('%Y-%m-%d %H:%M:%S')
+    data = {"Created":now, "Email":"rishidwd29@gmail.com", "Name": "Rishi", "phone": "+9156473126", "Platform": "fb", "status": "pending"}
+    json_data = json.dumps(data)
+    # serializer = DataSerializer(data=data)
+    # if serializer.is_valid():
+    #     json_data = JSONRenderer().render(serializer.data)
+    #     print(json_data)
+    
+    # db.child("New Leads").push(json_data)
+
+    # else:
+    #     print(serializer.errors)
+    
+    point=db.child("New Leads").child("email").get()
     # point= db.child("local_test").child("lead_details").child("email").get()
     email = point.val()
     # point= db.child("local_test").child("lead_details").child("name").get()
-    name = "Rishi"
+    name = db.child("New Leads").child("name").get()
     # point= db.child("local_test").child("lead_details").child("name").get()
-    phone = "+91323456789"
+    phone = db.child("New Leads")
     # point= db.child("local_test").child("lead_details").child("name").get()
     time = "created at"
     # point= db.child("local_test").child("lead_details").child("name").get()
