@@ -32,6 +32,7 @@ urlpatterns = [
     path('services/call-leads/result-log/call-back/',views.CallBackLater),
     path('services/call-leads/result-log/not-answered/',views.NotAnswered),
     path('services/call-leads/result-log/not-intrested/',views.NotIntrested),
+    path('services/call-leads/result-log/invalid/',views.Invalid),
     
      
 ]

@@ -27,11 +27,12 @@ print(FIREBASE_CONFIG)
 firebase = pyrebase.initialize_app(FIREBASE_CONFIG)
 auth_fb = firebase.auth()
 db = firebase.database()
-
+rec_num=0
 def index(request):
     return render(request, "index.html",{"next_action":"services/"})
 
 def services(request):
+    rec_num=0
     email=request.POST.get('email')
     password=request.POST.get('password')
     try: 
@@ -52,7 +53,7 @@ def logout(request):
 def CallLeads(request):
     rec = newleadlist()
     
-    point = rec[0]
+    point = rec[rec_num]
     
     # point= db.child("local_test").child("lead_details").child("email").get()
     email = point["Email"]
@@ -64,11 +65,11 @@ def CallLeads(request):
     time = point["Created"]
     # point= db.child("local_test").child("lead_details").child("name").get()
     source = point["Platform"]
-    return render(request, "call-leads.html", {"email": email, "name": name, "phone": phone, "time": time, "source": source})
+    return render(request, "call-list.html", {"email": email, "name": name, "phone": phone, "time": time, "source": source})
 
 def CallList(request):
     rec = get_Call_List()
-    point = rec[0]
+    point = rec[rec_num]
 
     email = point["Email"]
     name =  point["Name"]
@@ -102,20 +103,116 @@ def Call(request):
     return redirect('services/call-leads/call-list/')
 
 def calendly(request):
-    
+    result = db.child("Call List").get()
+    result = result.val()
+    rkey=""
+    rec = get_Call_List()
+    point = rec[0]
+    attempt_no = point["Attempt_no"]
+    # phone = point["phone"]
+    for key, value in result.items():
+        rkey = key
+        break
+    attempt_no = attempt_no +1
+    now = datetime.now().strftime('%Y-%m-%d %H:%M:%S')
+    db.child("Call List").child(rkey).update({"Attempt_no": attempt_no})
+    db.child("Call List").child(rkey).update({"Attempted": now})
+    db.child("Call List").child(rkey).update({"status": "Booked"})
+    db.child("Archived").push(point)
+    db.child("Call List").child(rkey).remove()
+
     return render(request, "calendly.html")
+
 
 def ResultLog(request):
     return render(request, "result-log.html")
 
 def CallBackLater(request):
-    # Crud operation code
-    return redirect('/services/call-leads/result-log')
+    rec_num = rec_num +1
+    result = db.child("Call List").get()
+    result = result.val()
+    rkey=""
+    rec = get_Call_List()
+    point = rec[0]
+    attempt_no = point["Attempt_no"]
+    # phone = point["phone"]
+    for key, value in result.items():
+        rkey = key
+        break
+    attempt_no = attempt_no +1
+    now = datetime.now().strftime('%Y-%m-%d %H:%M:%S')
+    db.child("Call List").child(rkey).update({"Attempt_no": attempt_no})
+    db.child("Call List").child(rkey).update({"Attempted": now})
+    db.child("Call List").child(rkey).update({"status": "Call back later"})
+    num = point["Attempt_no"]
+    if num >= 10:
+        db.child("Archived").push(point)
+        db.child("Call List").child(rkey).remove()
+
+    return redirect('/services/call-leads/Call-list')
 
 def NotAnswered(request):
     #Crud operation code
-    return redirect('/services/call-leads/result-log')
+    rec_num = rec_num +1
+    result = db.child("Call List").get()
+    result = result.val()
+    rkey=""
+    rec = get_Call_List()
+    point = rec[0]
+    attempt_no = point["Attempt_no"]
+    # phone = point["phone"]
+    for key, value in result.items():
+        rkey = key
+        break
+    attempt_no = attempt_no +1
+    now = datetime.now().strftime('%Y-%m-%d %H:%M:%S')
+    db.child("Call List").child(rkey).update({"Attempt_no": attempt_no})
+    db.child("Call List").child(rkey).update({"Attempted": now})
+    db.child("Call List").child(rkey).update({"status": "Not answred"})
+    num = point["Attempt_no"]
+    if num >= 10:
+        db.child("Archived").push(point)
+        db.child("Call List").child(rkey).remove()
+
+    return redirect('/services/call-leads/Call-list')
+    
 
 def NotIntrested(request):
-    #Crud operation code
-    return redirect('/services/call-leads/result-log')
+    result = db.child("Call List").get()
+    result = result.val()
+    rkey=""
+    rec = get_Call_List()
+    point = rec[0]
+    attempt_no = point["Attempt_no"]
+    # phone = point["phone"]
+    for key, value in result.items():
+        rkey = key
+        break
+    attempt_no = attempt_no +1
+    now = datetime.now().strftime('%Y-%m-%d %H:%M:%S')
+    db.child("Call List").child(rkey).update({"Attempt_no": attempt_no})
+    db.child("Call List").child(rkey).update({"Attempted": now})
+    db.child("Call List").child(rkey).update({"status": "Not Intrested"})
+    db.child("Archived").push(point)
+    db.child("Call List").child(rkey).remove()    
+    return redirect('/services/call-leads/call-list')
+
+def Invalid(request):
+    result = db.child("Call List").get()
+    result = result.val()
+    rkey=""
+    rec = get_Call_List()
+    point = rec[0]
+    attempt_no = point["Attempt_no"]
+    # phone = point["phone"]
+    for key, value in result.items():
+        rkey = key
+        break
+    attempt_no = attempt_no +1
+    now = datetime.now().strftime('%Y-%m-%d %H:%M:%S')
+    db.child("Call List").child(rkey).update({"Attempt_no": attempt_no})
+    db.child("Call List").child(rkey).update({"Attempted": now})
+    db.child("Call List").child(rkey).update({"status": "Invalid phone number"})
+    db.child("Archived").push(point)
+    db.child("Call List").child(rkey).remove()    
+    return redirect('/services/call-leads/call-list')
