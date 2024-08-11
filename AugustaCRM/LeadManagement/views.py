@@ -7,6 +7,7 @@ import pyrebase
 from datetime import datetime
 from .serializer import DataSerializer
 from rest_framework.renderers import JSONRenderer
+from .Firebase.Firedb import *
 
 
 
@@ -49,31 +50,57 @@ def logout(request):
     return render(request, "index.html")
 
 def CallLeads(request):
-    now = datetime.now().strftime('%Y-%m-%d %H:%M:%S')
-    data = {"Created":now, "Email":"rishidwd29@gmail.com", "Name": "Rishi", "phone": "+9156473126", "Platform": "fb", "status": "pending"}
-    json_data = json.dumps(data)
-    # serializer = DataSerializer(data=data)
-    # if serializer.is_valid():
-    #     json_data = JSONRenderer().render(serializer.data)
-    #     print(json_data)
+    rec = newleadlist()
     
-    # db.child("New Leads").push(json_data)
-
-    # else:
-    #     print(serializer.errors)
+    point = rec[0]
     
-    point=db.child("New Leads").child("email").get()
     # point= db.child("local_test").child("lead_details").child("email").get()
-    email = point.val()
+    email = point["Email"]
     # point= db.child("local_test").child("lead_details").child("name").get()
-    name = db.child("New Leads").child("name").get()
+    name =  point["Name"]
     # point= db.child("local_test").child("lead_details").child("name").get()
-    phone = db.child("New Leads")
+    phone = point["phone"]
     # point= db.child("local_test").child("lead_details").child("name").get()
-    time = "created at"
+    time = point["Created"]
     # point= db.child("local_test").child("lead_details").child("name").get()
-    source = "facebook"
+    source = point["Platform"]
     return render(request, "call-leads.html", {"email": email, "name": name, "phone": phone, "time": time, "source": source})
+
+def CallList(request):
+    rec = get_Call_List()
+    point = rec[0]
+
+    email = point["Email"]
+    name =  point["Name"]
+    phone = point["phone"]
+    time = point["Created"]
+    source = point["Platform"]
+    
+    return render(request, "call-list.html", {"email": email, "name": name, "phone": phone, "time": time, "source": source})
+
+def CallResult(request):
+    
+    return render(request, "call-result.html")
+
+def Call(request):    
+    result = db.child("Call List").get()
+    result = result.val()
+    rkey=""
+    rec = get_Call_List()
+    point = rec[0]
+    attempt_no = point["Attempt_no"]
+    phone = point["phone"]
+    for key, value in result.items():
+        rkey = key
+        break
+    attempt_no = attempt_no +1
+    now = datetime.now().strftime('%Y-%m-%d %H:%M:%S')
+    db.child("Call List").child(rkey).update({"Attempt_no": attempt_no})
+    db.child("Call List").child(rkey).update({"Attempted": now})
+    print(phone)
+    redirect(f'tel:{phone}')
+
+    return redirect('services/call-leads/call-list/')
 
 def calendly(request):
     return render(request, "calendly.html")
