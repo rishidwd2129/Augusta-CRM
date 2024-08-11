@@ -20,9 +20,6 @@ from . import views
 
 urlpatterns = [
     path('',views.index,name = "Home"),
-    path('accounts/', include('allauth.urls')),
-    path('auth/', include('dj_rest_auth.urls')),
-    path('auth/registration/', include('dj_rest_auth.registration.urls')),
     path('services/',views.services, name = "services"),
     path('services/call-leads/',views.CallLeads, name = "call-leads"),
     path('services/call-leads/calendly/',views.calendly, name = "calendly"),
