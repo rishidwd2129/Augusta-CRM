@@ -19,7 +19,9 @@ RUN pip3 install \
     tqdm \
     djangorestframework \
     pyrebase4 \
-    firebase-admin
+    firebase-admin \
+    django-allauth \ 
+    django-rest-auth 
 
 EXPOSE 8000
 EXPOSE 4000

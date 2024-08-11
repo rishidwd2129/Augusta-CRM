@@ -1,9 +1,15 @@
 # Create your views here.
 from django.shortcuts import render , redirect
 from django.http import HttpResponse
+<<<<<<< HEAD
 from django.contrib import auth
 import pyrebase
 from datetime import datetime
+=======
+import pyrebase
+from django.shortcuts import redirect
+
+>>>>>>> 5000ee0c4c370a0e9b2c0ee345ae2023b72ba3c6
 
 import os
 
@@ -17,7 +23,7 @@ FIREBASE_CONFIG = {
     'appId': str(os.getenv('FIREBASE_APP_ID')),
     'measurementId': str(os.getenv('FIREBASE_MEASUREMENT_ID')),
 }
-
+print(FIREBASE_CONFIG)
 firebase = pyrebase.initialize_app(FIREBASE_CONFIG)
 auth_fb = firebase.auth()
 db = firebase.database()
@@ -34,6 +40,7 @@ def services(request):
         return render(request, "services.html")
     except:
         return render(request, "index.html", {"messages":"Invalid Credentials try again"})
+
 
 def sign_up(request):
     return render(request, "sign_up.html")

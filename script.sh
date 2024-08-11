@@ -1,15 +1,5 @@
 #!/bin/bash
 
-# Parse the env_var.yaml and export each variable
-while IFS= read -r line || [ -n "$line" ]; do
-  # Strip surrounding quotes and carriage returns
-  var=$(echo "$line" | sed 's/[\r]//g')  
-  # Export the cleaned variable
-  export "$var"
-done < env_var.yaml
-# To verify, you can print all environment variables starting with FIREBASE_
-env | grep FIREBASE_
-
 # Default IP and port
 IP="0.0.0.0"
 PORT="8000"
@@ -27,5 +17,9 @@ fi
 cd AugustaCRM || exit
 
 # Run Django server
+echo "making migrations"
+python manage.py makemigrations
+echo "migrating"
+python manage.py migrate
 echo "Running Django server on ${IP}:${PORT}"
 python manage.py runserver $IP:$PORT
