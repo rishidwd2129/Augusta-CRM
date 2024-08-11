@@ -1,15 +1,13 @@
 # Create your views here.
 from django.shortcuts import render , redirect
 from django.http import HttpResponse
-<<<<<<< HEAD
+
 from django.contrib import auth
 import pyrebase
 from datetime import datetime
-=======
-import pyrebase
-from django.shortcuts import redirect
 
->>>>>>> 5000ee0c4c370a0e9b2c0ee345ae2023b72ba3c6
+
+
 
 import os
 
@@ -51,8 +49,8 @@ def logout(request):
 
 def CallLeads(request):
     now = datetime.now()
-    data = {"currenttimemillis":"12:12:08.76", "name":"Rishi", "email": "rishidwd29@gmail.com", "phone": "+9156473126", "lead_create_time/date": f"{now}", "status": "pending"}
-    db.child("leads_details").push(data)
+    # data = {"currenttimemillis":"12:12:08.76", "name":"Rishi", "email": "rishidwd29@gmail.com", "phone": "+9156473126", "lead_create_time/date": f"{now}", "status": "pending"}
+    # db.child("leads_details").push(data)
     point=db.child("leads_details").child("email").get()
     # point= db.child("local_test").child("lead_details").child("email").get()
     email = point.val()
