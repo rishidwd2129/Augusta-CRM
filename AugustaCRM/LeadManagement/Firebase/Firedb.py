@@ -38,7 +38,33 @@ def newleadlist():
     except:
         pass
 
-def move_to_call_list():
+def move_to_call_list(str):
+    result = db.child("New Leads").get()
+    result = result.val()
+    i = 0
+    rec={}
+    for key, value in result.items():
+        
+        dic1 = {}
+        for sub_key, sub_value in value.items():
+
+            dic2= {sub_key:sub_value}
+            dic1 = dic1 | dic2
+            rec[i]= dic1
+        i = i+1
+    record = rec[0]
+    now = datetime.now().strftime('%Y-%m-%d %H:%M:%S')
+    data = {"Attempted":now,"status":str, "Attempt_no":1}
+    record = record | data
+    db.child("Call List").push(record)
+    rkey = ""
+    for key, value in result.items():
+        rkey = key
+        break
+    db.child("New Leads").child(rkey).remove()
+
+
+def move_to_archive(str):
     result = db.child("New Leads").get()
     result = result.val()
     i = 0
@@ -54,15 +80,14 @@ def move_to_call_list():
         i = i+1
     record = rec[0]
     now = datetime.now().strftime('%Y-%m-%d %H:%M:%S')
-    data = {"Attempted":now,"status": "pending", "Attempt_no":1}
+    data = {"Attempted":now,"status":str, "Attempt_no":1}
     record = record | data
-    db.child("Call List").push(record)
+    db.child("Archive").push(record)
     rkey = ""
     for key, value in result.items():
         rkey = key
         break
     db.child("New Leads").child(rkey).remove()
-
 
 def get_Call_List():
     result = db.child("Call List").get()
