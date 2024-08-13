@@ -33,6 +33,8 @@ def index(request):
     return render(request, "index.html",{"next_action":"services/"})
 
 def services(request):
+    global rec_num
+    global new_rec_num 
     rec_num=0
     new_rec_num=0
     email=request.POST.get('email')
