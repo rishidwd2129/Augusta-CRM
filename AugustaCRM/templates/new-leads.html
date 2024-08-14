@@ -1,5 +1,9 @@
 {% load static %}
-
+{% if messages %}
+    <script>
+        alert("{{ messages }}");    
+    </script>
+{% endif %}
 <!DOCTYPE html>
 <html lang="en">
   <head>
@@ -280,11 +284,11 @@
           
           <a href ="tel:{{phone}}"><button type="button" class="btn btn-outline-primary mb-2 fixed-size-button">Call</button></a>
           <br>
-          <a href ="/services/call-leads/calendly/"><button type="button" class="btn btn-outline-primary mb-2 fixed-size-button">calender</button></a>
-          <a href ="/"><button type="button" class="btn btn-outline-primary mb-2 fixed-size-button">call back later</button></a>
-          <a href ="/"><button type="button" class="btn btn-outline-primary mb-2 fixed-size-button">not Answered</button></a>
-          <a href ="/"><button type="button" class="btn btn-outline-primary mb-2 fixed-size-button">Not Intrested</button></a>
-          <a href ="/"><button type="button" class="btn btn-outline-primary mb-2 fixed-size-button">Invalid Number</button></a>
+          <a href ="/services/call-leads/new-calendly/"><button type="button" class="btn btn-outline-primary mb-2 fixed-size-button">calender</button></a>
+          <a href ="/services/call-leads/new-callback/"><button type="button" class="btn btn-outline-primary mb-2 fixed-size-button">call back later</button></a>
+          <a href ="/services/call-leads/new-notanswred/"><button type="button" class="btn btn-outline-primary mb-2 fixed-size-button">not Answered</button></a>
+          <a href ="/services/call-leads/new-notintrested/"><button type="button" class="btn btn-outline-primary mb-2 fixed-size-button">Not Intrested</button></a>
+          <a href ="/services/call-leads/new-Invalid"><button type="button" class="btn btn-outline-primary mb-2 fixed-size-button">Invalid Number</button></a>
           
         </div>
         <div class="card-footer fs-sm text-body-secondary">End</div>
