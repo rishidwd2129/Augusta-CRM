@@ -20,8 +20,8 @@ from . import views
 
 urlpatterns = [
     path('',views.index,name = "Home"),
-    path('/empty-newleads',views.EmptyNewLeads,name = "empty new leads"),
-    path('/empty-call-list',views.EmptyCallList,name = "empty call list"),
+    path('empty-newleads/',views.EmptyNewLeads,name = "empty new leads"),
+    path('empty-call-list/',views.EmptyCallList,name = "empty call list"),
 
     path('services/',views.services, name = "services"),
     path('services/call-leads/',views.CallLeads, name = "call-leads"),
@@ -31,7 +31,7 @@ urlpatterns = [
     path('services/call-leads/new-callback/',views.NewCallBack),
     path('services/call-leads/new-notanswred/',views.NewNotAnswred),
     path('services/call-leads/new-notintrested/',views.NewNotIntrested),
-    path('services/call-leads/new-notintrested/',views.NewInvalid),
+    path('services/call-leads/new-Invalid/',views.NewInvalid),
 
 
     path('services/call-leads/call-list/',views.CallList, name = "call-list"),
